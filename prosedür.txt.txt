@@ -1,0 +1,61 @@
+USE [Test]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[GetStockTransactions]
+    @Malkodu VARCHAR(50),
+	@BaslangicTarihi VARCHAR(15),
+    @BitisTarihi VARCHAR(15)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @Stok INT;
+    SET @Stok = 0;
+
+   -- İlk sorgu: Verileri çekme ve #TempTable geçici tablosunu oluşturma
+SELECT
+    ROW_NUMBER() OVER (ORDER BY Tarih ASC) AS SiraNo,
+    CASE WHEN IslemTur = 0 THEN 'Giriş' ELSE 'Çıkış' END AS IslemTur,
+    EvrakNo,
+    CONVERT(VARCHAR(15), CAST(Tarih - 2 AS DATETIME), 104) AS Tarih,
+    CASE WHEN IslemTur = 0 THEN CAST(Miktar as int) ELSE 0 END AS GirisMiktar,
+    CASE WHEN IslemTur = 1 THEN CAST(Miktar as int)  ELSE 0 END AS CikisMiktar,
+    0 AS Stok -- Stok sütununu oluştur
+INTO #TempTable
+FROM
+     STI
+WHERE
+    Malkodu = @Malkodu
+	AND Tarih BETWEEN CONVERT(DATETIME , CONVERT(VARCHAR(15),@BaslangicTarihi), 104) AND
+	CONVERT(DATETIME , CONVERT(VARCHAR(15),@BitisTarihi), 104)
+  
+ORDER BY
+    Tarih ASC;
+
+
+    -- İkinci sorgu: Stok hesabını yapma
+    DECLARE @RowCount INT;
+    SET @RowCount = (SELECT COUNT(*) FROM #TempTable);
+
+    DECLARE @Counter INT;
+    SET @Counter = 1;
+
+    WHILE @Counter <= @RowCount
+    BEGIN
+        UPDATE #TempTable
+        SET @Stok = @Stok + CASE WHEN IslemTur = 'Giriş' THEN GirisMiktar ELSE -CikisMiktar END,
+            Stok = @Stok
+        WHERE SiraNo = @Counter;
+
+        SET @Counter = @Counter + 1;
+    END;
+
+    -- Sonuçları döndürme
+    SELECT * FROM #TempTable;
+
+    -- Geçici tabloyu temizleme
+    DROP TABLE #TempTable;
+END;

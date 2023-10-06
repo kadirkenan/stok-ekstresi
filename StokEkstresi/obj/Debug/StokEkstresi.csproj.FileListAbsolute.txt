@@ -1,0 +1,10 @@
+C:\Users\msbuy\Desktop\preoje2\StokEkstresi\StokEkstresi\bin\Debug\StokEkstresi.exe.config
+C:\Users\msbuy\Desktop\preoje2\StokEkstresi\StokEkstresi\bin\Debug\StokEkstresi.exe
+C:\Users\msbuy\Desktop\preoje2\StokEkstresi\StokEkstresi\bin\Debug\StokEkstresi.pdb
+C:\Users\msbuy\Desktop\preoje2\StokEkstresi\StokEkstresi\obj\Debug\StokEkstresi.csproj.AssemblyReference.cache
+C:\Users\msbuy\Desktop\preoje2\StokEkstresi\StokEkstresi\obj\Debug\StokEkstresi.Form1.resources
+C:\Users\msbuy\Desktop\preoje2\StokEkstresi\StokEkstresi\obj\Debug\StokEkstresi.Properties.Resources.resources
+C:\Users\msbuy\Desktop\preoje2\StokEkstresi\StokEkstresi\obj\Debug\StokEkstresi.csproj.GenerateResource.cache
+C:\Users\msbuy\Desktop\preoje2\StokEkstresi\StokEkstresi\obj\Debug\StokEkstresi.csproj.CoreCompileInputs.cache
+C:\Users\msbuy\Desktop\preoje2\StokEkstresi\StokEkstresi\obj\Debug\StokEkstresi.exe
+C:\Users\msbuy\Desktop\preoje2\StokEkstresi\StokEkstresi\obj\Debug\StokEkstresi.pdb
